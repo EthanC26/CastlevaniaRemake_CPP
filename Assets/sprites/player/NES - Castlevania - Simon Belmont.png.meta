@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: NES - Castlevania - Simon Belmont_0
+      name: walk1
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 799
-        height: 529
+        x: 29
+        y: 476
+        width: 16
+        height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,6 +141,28 @@ TextureImporter:
         x: 1
         y: 477
         width: 16
+        height: 31
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 33fb7698b2602934cabe818e9ff5a946
+      internalID: -1342900775
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: walk2
+      rect:
+        serializedVersion: 2
+        x: 46
+        y: 476
+        width: 16
         height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -150,8 +172,30 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 33fb7698b2602934cabe818e9ff5a946
-      internalID: -1342900775
+      spriteID: 0495a034086dee94f9a6c8e3d525c081
+      internalID: -574282226
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: walk3
+      rect:
+        serializedVersion: 2
+        x: 63
+        y: 476
+        width: 16
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 52fd427463ffc274b96f8189c5f0c4b5
+      internalID: -2066426900
       vertices: []
       indices: 
       edges: []
@@ -170,8 +214,10 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      NES - Castlevania - Simon Belmont_0: 5018455198991690172
       Simon Belmont idel: -1342900775
+      walk1: 5018455198991690172
+      walk2: -574282226
+      walk3: -2066426900
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
