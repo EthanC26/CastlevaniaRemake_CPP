@@ -1,26 +1,21 @@
 using UnityEngine;
-
 [RequireComponent(typeof(Rigidbody2D), typeof(SpriteRenderer), typeof(Animator))]//properties of a class
+[RequireComponent (typeof(GroundCheck), typeof(Jump))]
 public class PlayerController : MonoBehaviour
 {
     //component references
     private Rigidbody2D rb;
     private SpriteRenderer sr;
     private Animator anim;
+    private GroundCheck gndck;
 
     //movement variables
     [Range(1, 3)]
     public float speed = 1.0f;
-    [Range(1,2)]
+    [Range(1,4)]
     public float jumpforce = 2.0f;
 
-    //groundcheck variables
-    [Range(0.01f, 0.1f)]
-    public float groundCheckRadius = 0.02f;
-    public LayerMask isGroundLayer;
     public bool isGrounded = false;
-
-    private Transform groundCheck;
 
     //attack variables
     private bool Attacking = false;
@@ -35,13 +30,9 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();//grabs rigidbody2D
         sr = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
+        gndck = GetComponent<GroundCheck>();
 
-        //groundcheck initaliaztion
-        GameObject newGameObject = new GameObject();
-        newGameObject.transform.SetParent(transform);
-        newGameObject.transform.localPosition = Vector3.zero;
-        newGameObject.name = "GroundCheck";
-        groundCheck = newGameObject.transform;
+        
     }
 
     // Update is called once per frame
@@ -49,14 +40,13 @@ public class PlayerController : MonoBehaviour
     {
         CheckIsGrounded();
 
-        isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, isGroundLayer);//checking if player is grounded
+       
 
         float hInput = Input.GetAxis("Horizontal");
 
         rb.linearVelocity = new Vector3(hInput * speed, rb.linearVelocity.y, 0);
 
-        if (Input.GetButtonDown("Jump") && isGrounded)
-            rb.AddForce(Vector2.up * jumpforce, ForceMode2D.Impulse);
+        
         //main attack
         if (Input.GetButtonDown("attack"))
             if (elapsedTime > attackTimer)
@@ -98,9 +88,25 @@ public class PlayerController : MonoBehaviour
     {
         if (!isGrounded)
         {
-            if (rb.linearVelocity.y <= 0) isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius,
-               isGroundLayer);
+            if (rb.linearVelocity.y <= 0) isGrounded = gndck.isGrounded();
+           
         }
-        else isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius,isGroundLayer);
+        else isGrounded = gndck.isGrounded();
+    }
+
+    public void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("powerup"))
+        {
+            Destroy(collision.gameObject);
+        }
+    }
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+
+    }
+    private void OnCollisionExit(Collision collision)
+    {
+
     }
 }
