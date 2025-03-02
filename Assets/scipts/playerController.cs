@@ -161,7 +161,7 @@ public class PlayerController : MonoBehaviour
         if (speedChange != null)
         {
             StopCoroutine(speedChange);
-            speed /= 2;
+           // speed /= 2;
         }    
           
         speedChange = StartCoroutine(SpeedChangeCoroutine());

@@ -6,6 +6,9 @@ TagManager:
   tags:
   - powerup
   - Colliders
+  - Barrier
+  - eProj
+  - pProj
   layers:
   - Default
   - TransparentFX
@@ -42,6 +45,9 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: PlayArea
+    uniqueID: 2918152279
     locked: 0
   m_RenderingLayers:
   - Default

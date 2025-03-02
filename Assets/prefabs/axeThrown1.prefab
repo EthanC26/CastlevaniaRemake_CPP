@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 5958387411027699057}
   m_Layer: 0
   m_Name: axeThrown1
-  m_TagString: Untagged
+  m_TagString: pProj
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -76,8 +76,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1376815017
+  m_SortingLayer: 1
   m_SortingOrder: 1
   m_Sprite: {fileID: 810012388, guid: 837f892f18aab29419a12c92d8731ce1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -130,6 +130,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lifetime: 2.2
+  Damage: 20
 --- !u!58 &5958387411027699057
 CircleCollider2D:
   m_ObjectHideFlags: 0
