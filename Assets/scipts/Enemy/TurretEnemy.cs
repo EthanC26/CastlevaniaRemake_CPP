@@ -1,14 +1,22 @@
 using UnityEngine;
 
+[RequireComponent (typeof(SpriteRenderer))]
+
 public class TurretEnemy : Enemy
 {
     [SerializeField] private float projectileFireRate = 2.0f;
-    private float timeSinceLastFire = 0;
+    [SerializeField] private float detcRange = 2.0f;
+    private float timeSinceLastFire = 0f;
+    private Transform playerTransform;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     protected override void Start()
     {
+        sr = GetComponent<SpriteRenderer>();
+
         base.Start();
+
+        playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
 
         if (projectileFireRate <= 0)
             projectileFireRate = 2;
@@ -20,17 +28,38 @@ public class TurretEnemy : Enemy
         AnimatorClipInfo[] curPlayingClips = anim.GetCurrentAnimatorClipInfo(0);
 
         if (curPlayingClips[0].clip.name.Contains("Idle")) CheckFire();
-        
 
+        turretFlip();
         
     }
 
-    public void CheckFire()
+     void CheckFire()
     {
-        if (Time.time > timeSinceLastFire + projectileFireRate)
+        if (playerTransform != null)
         {
-            anim.SetTrigger("Fire");
-            timeSinceLastFire = Time.time;
+            float distanceToPlayer = Vector2.Distance(transform.position, playerTransform.position);
+
+            if (distanceToPlayer <= detcRange && Time.time > timeSinceLastFire + projectileFireRate)
+            {
+                anim.SetTrigger("Fire");
+                timeSinceLastFire = Time.time;
+            }
+        }
+    }
+
+    private void turretFlip()
+    {
+        if (playerTransform != null)
+        {
+            if (playerTransform.position.x < transform.position.x)
+            {
+                sr.flipX = false;
+            }
+
+            else if(playerTransform.position.x > transform.position.x)
+            {
+                sr.flipX = true;
+            }
         }
     }
 }
