@@ -87,16 +87,36 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
+           
             string sceneName = (SceneManager.GetActiveScene().name.Contains("Level")) ? "TitleScreen" : "Level";
             SceneManager.LoadScene(sceneName);
+            
+            string sceneName_ = (SceneManager.GetActiveScene().name.Contains("GameOver")) ? "TitleScreen" : "GameOver";
+            SceneManager.LoadScene(sceneName_);
+
+            string _sceneName = (SceneManager.GetActiveScene().name.Contains("TitleScreen")) ? "Level" : "TitleScreen";
+            SceneManager.LoadScene(_sceneName);
+
+
         }
+       
+       
 
         if (Input.GetKeyDown(KeyCode.Alpha1))
             Score++;
     }
     void GameOver()
     {
-        Debug.Log("Game Over gose here :(");
+        if (lives <= 0)
+        {
+            string sceneName = (SceneManager.GetActiveScene().name.Contains("Level")) ? "GameOver" : "Level";
+            SceneManager.LoadScene(sceneName);
+
+            Debug.Log("Game Over gose here :(");
+        }
+
+        lives = 3;
+        
     }
 
     void Respawn()
