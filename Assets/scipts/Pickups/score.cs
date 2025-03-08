@@ -2,10 +2,11 @@ using UnityEngine;
 
 public class score : MonoBehaviour, IPickup
 {
-    public void Pickup(PlayerController player)
+    public int scoreToAdd;
+    public void Pickup()
     {
-        player.Score += 10;
 
+        GameManager.Instance.Score =+ scoreToAdd;
         Destroy(gameObject);
     }
 

@@ -29,7 +29,7 @@ public class TurretEnemy : Enemy
 
         if (curPlayingClips[0].clip.name.Contains("Idle")) CheckFire();
 
-        turretFlip();
+        TurretFlip();
         
     }
 
@@ -47,7 +47,7 @@ public class TurretEnemy : Enemy
         }
     }
 
-    private void turretFlip()
+    private void TurretFlip()
     {
         if (playerTransform != null)
         {

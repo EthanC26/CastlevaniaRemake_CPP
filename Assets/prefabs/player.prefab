@@ -19,7 +19,7 @@ GameObject:
   - component: {fileID: 8004413821584582776}
   m_Layer: 0
   m_Name: player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -83,7 +83,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1376815017
-  m_SortingLayer: -1
+  m_SortingLayer: 1
   m_SortingOrder: 1
   m_Sprite: {fileID: 4334783836991956000, guid: 837f892f18aab29419a12c92d8731ce1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -182,7 +182,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1
-  jumpforce: 2
+  jumpforce: 1
   isGrounded: 0
 --- !u!95 &6278005435134927846
 Animator:
@@ -234,7 +234,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cfa057a26016c8489091223e1d63989, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initShotVelocity: {x: 0, y: 0}
+  initShotVelocity: {x: 2.5, y: 2.5}
   spawnPointRight: {fileID: 1366922471388071054}
   spawnPointLeft: {fileID: 6923680792507017032}
   projectilePrefab: {fileID: 4211100187058230240, guid: 433328f816c353940ba64e627ac7d826, type: 3}
@@ -250,8 +250,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 217196e435e8ae64a86d8713e4c0ec50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpHight: 0.1
-  jumpFallForce: 20
+  jumpHight: 1
+  jumpFallForce: 5
   jumpCancelled: 0
 --- !u!1 &6435523786468640503
 GameObject:

@@ -2,9 +2,10 @@ using UnityEngine;
 
 public class lives : MonoBehaviour, IPickup
 {
-    public void Pickup(PlayerController player)
+    public int livesToAdd;
+    public void Pickup()
     {
-        player.lives ++;
+       GameManager.Instance.lives += livesToAdd;
 
         Destroy(gameObject);
     }
