@@ -1,9 +1,14 @@
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
+
+
 public class GameManager : MonoBehaviour
 {
     private static GameManager _instance;
     public static GameManager Instance => _instance;
+
+    public UnityEvent<int> OnLiveValueChanged;
 
     #region GAME PROPERTIES
     [SerializeField]private int maxLives = 10;
@@ -27,6 +32,8 @@ public class GameManager : MonoBehaviour
             _lives = value;
 
             if (_lives > maxLives) _lives = maxLives;
+
+            OnLiveValueChanged?.Invoke(_lives);
 
             Debug.Log($"{gameObject.name} lives has changed to {_lives}");
         }
@@ -105,6 +112,9 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha1))
             Score++;
     }
+    
+    
+
     void GameOver()
     {
         if (lives <= 0)
