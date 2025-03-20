@@ -1,14 +1,23 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.UI;
 
 public class SettingsMenu : BaseMenu
 {
+    public AudioMixer mixer;
+
     public Button creditsBtn;
     public Button backBtn;
 
-    public Slider volSlider;
-    public TMP_Text volSliderText;
+    public Slider MasterVolSlider;
+    public TMP_Text MasterVolSliderText;
+
+    public Slider MusicVolSlider;
+    public TMP_Text MusicVolSliderText;
+
+    public Slider sfxVolSlider;
+    public TMP_Text sfxVolSliderText;
 
     public override void Init(MenuController contex)
     {
@@ -18,16 +27,21 @@ public class SettingsMenu : BaseMenu
         if (backBtn) backBtn.onClick.AddListener(JumpBack);
         if (creditsBtn) creditsBtn.onClick.AddListener(() => SetNextMenu(MenuStates.Credits));
 
-        if (volSlider)
-        {
-            volSlider.onValueChanged.AddListener(OnSliderValueChanged);
-            OnSliderValueChanged(volSlider.value);
-        }
+        setupSliderInformation(MasterVolSlider, MasterVolSliderText, "MasterVol");
+        setupSliderInformation(MusicVolSlider, MusicVolSliderText, "MusicVol");
+        setupSliderInformation(sfxVolSlider, sfxVolSliderText, "SFXVol");
     }
 
-    void OnSliderValueChanged(float value)
+    void setupSliderInformation(Slider slider, TMP_Text sliderText, string parameterName)
     {
-        float roundedValue = Mathf.Round(value * 100);
-        if (volSliderText) volSliderText.text = $"{roundedValue}%";
+        slider.onValueChanged.AddListener((value) => OnSliderValueChanged(value, slider, sliderText, parameterName));
+        OnSliderValueChanged(slider.value, slider,sliderText, parameterName);
+    }
+
+    void OnSliderValueChanged(float value, Slider slider, TMP_Text sliderText, string parameterName)
+    {
+        value = (value == 0.0f) ? -80.0f : 20.0f * Mathf.Log10(slider.value);
+        sliderText.text = (value == -80.0f) ? "0%" : $"{(int)(slider.value * 100)}%";
+        mixer.SetFloat(parameterName, value);
     }
 }

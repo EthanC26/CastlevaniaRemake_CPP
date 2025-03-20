@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D), typeof(SpriteRenderer), typeof(Animator))]//properties of a class
-[RequireComponent (typeof(GroundCheck), typeof(Jump))]
+[RequireComponent (typeof(GroundCheck), typeof(Jump), typeof(AudioSource))]
 public class PlayerController : MonoBehaviour
 {
     //component references
@@ -29,6 +29,10 @@ public class PlayerController : MonoBehaviour
     private float attackTimer = 1;
     private float elapsedTime = 0;
 
+    //Audio Clips
+    private AudioSource audioSource;
+    [SerializeField] private AudioClip whipSound;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -36,7 +40,9 @@ public class PlayerController : MonoBehaviour
         sr = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
         gndck = GetComponent<GroundCheck>();
+        audioSource = GetComponent<AudioSource>();
 
+      
         
     }
 
@@ -57,6 +63,8 @@ public class PlayerController : MonoBehaviour
             if (elapsedTime > attackTimer)
             {
                 Attacking = true;
+
+                audioSource.PlayOneShot(whipSound);
 
                 elapsedTime = 0;
             }
@@ -122,7 +130,7 @@ public class PlayerController : MonoBehaviour
         if (speedChange != null)
         {
             StopCoroutine(speedChange);
-           // speed /= 2;
+            speed /= 2;
         }    
           
         speedChange = StartCoroutine(SpeedChangeCoroutine());

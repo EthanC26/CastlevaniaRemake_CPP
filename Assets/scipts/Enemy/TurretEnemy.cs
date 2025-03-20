@@ -16,7 +16,7 @@ public class TurretEnemy : Enemy
 
         base.Start();
 
-        playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+        //playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
 
         if (projectileFireRate <= 0)
             projectileFireRate = 2;
