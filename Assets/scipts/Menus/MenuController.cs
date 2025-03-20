@@ -7,7 +7,9 @@ public class MenuController : MonoBehaviour
 
     public MenuStates initState = MenuStates.MainMenu;
 
+    public BaseMenu CurrentState => currentState;
     private BaseMenu currentState;
+    
 
     Dictionary<MenuStates, BaseMenu> menuDictionary = new Dictionary<MenuStates, BaseMenu>();
     Stack<MenuStates> menuStack = new Stack<MenuStates>();
@@ -30,6 +32,8 @@ public class MenuController : MonoBehaviour
             menuDictionary.Add(menu.state, menu);
         }
         SetActiveState(initState);
+
+        GameManager.Instance.SetMenuController(this);
     }
 
     public void JumpBack()
@@ -60,9 +64,13 @@ public class MenuController : MonoBehaviour
 
         if(!isJumpingBack) menuStack.Push(newState);
     }
-    // Update is called once per frame
-    void Update()
+  
+    public void QuitGame()
     {
-        
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif
     }
 }

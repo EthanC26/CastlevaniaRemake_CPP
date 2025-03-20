@@ -1,18 +1,18 @@
+using System;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.SceneManagement;
-
+using UnityEngine.Events;
 
 public class GameManager : MonoBehaviour
 {
     private static GameManager _instance;
     public static GameManager Instance => _instance;
 
-    public UnityEvent<int> OnLiveValueChanged;
+    public event Action <int> OnLifeValueChanged;
 
     #region GAME PROPERTIES
     [SerializeField]private int maxLives = 10;
-    private int _lives = 3;
+    private int _lives = 5;
 
     public int lives
     {
@@ -33,7 +33,7 @@ public class GameManager : MonoBehaviour
 
             if (_lives > maxLives) _lives = maxLives;
 
-            OnLiveValueChanged?.Invoke(_lives);
+            OnLifeValueChanged?.Invoke(_lives);
 
             Debug.Log($"{gameObject.name} lives has changed to {_lives}");
         }
@@ -68,8 +68,11 @@ public class GameManager : MonoBehaviour
     public PlayerController PlayerInstance => _playerInstance;
     #endregion
 
+
+    private MenuController CurrentMenuController;
     private Transform currentCheckpoint;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+
+    public void SetMenuController(MenuController newMenuController) => CurrentMenuController = newMenuController;
     void Awake()
     {
         Debug.Log($"current lives: { _lives}");
@@ -104,13 +107,21 @@ public class GameManager : MonoBehaviour
             string _sceneName = (SceneManager.GetActiveScene().name.Contains("TitleScreen")) ? "Level" : "TitleScreen";
             SceneManager.LoadScene(_sceneName);
 
-
         }
-       
-       
 
         if (Input.GetKeyDown(KeyCode.Alpha1))
             Score++;
+
+        if (SceneManager.GetActiveScene().name.Contains("Level"))
+        {
+            if (Input.GetKeyDown(KeyCode.P))
+            {
+                if (CurrentMenuController.CurrentState.state == MenuStates.InGame)
+                    CurrentMenuController.SetActiveState(MenuStates.Pause);
+                else
+                    CurrentMenuController.JumpBack();
+            }
+        }
     }
     
     

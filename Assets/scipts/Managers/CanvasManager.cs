@@ -2,9 +2,10 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 
-
+[Obsolete]
 public class CanvasManager : MonoBehaviour
 {
     [Header("Buttons")]
@@ -54,7 +55,7 @@ public class CanvasManager : MonoBehaviour
         }
         if (livesText)
         {
-            GameManager.Instance.OnLiveValueChanged.AddListener(OnLifeValueChanged);
+           // GameManager.Instance.OnLifeValueChanged.AddListener(OnLifeValueChanged);
             OnLifeValueChanged(GameManager.Instance.lives);
         }
     }
@@ -77,7 +78,7 @@ public class CanvasManager : MonoBehaviour
         if (quitBtn) quitBtn.onClick.RemoveAllListeners();
         if (resumeBtn) resumeBtn.onClick.RemoveAllListeners();
         if (mainMenuBtn) mainMenuBtn.onClick.RemoveAllListeners();
-        if (livesText) GameManager.Instance.OnLiveValueChanged.RemoveAllListeners();
+        //if (livesText) GameManager.Instance.OnLifeValueChanged.RemoveAllListeners();
     }
 
     private void setMenus(GameObject menuToActivate, GameObject menuToDeactivate)
