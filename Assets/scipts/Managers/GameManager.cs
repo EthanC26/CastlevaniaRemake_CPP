@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     private static GameManager _instance;
     public static GameManager Instance => _instance;
 
+    public event Action<PlayerController> OnPlayerSpawned;
     public event Action <int> OnLifeValueChanged;
 
     #region GAME PROPERTIES
@@ -150,6 +151,7 @@ public class GameManager : MonoBehaviour
     {
         _playerInstance = Instantiate(playerPrefab, spawnLocation.position, Quaternion.identity);
         currentCheckpoint = spawnLocation;
+        OnPlayerSpawned?.Invoke(_playerInstance);
     }
 
     public void UpdateCheckpoint(Transform updatedChechpoint)

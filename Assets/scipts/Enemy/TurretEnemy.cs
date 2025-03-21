@@ -1,65 +1,68 @@
+using System;
 using UnityEngine;
-
-[RequireComponent (typeof(SpriteRenderer))]
 
 public class TurretEnemy : Enemy
 {
+    [SerializeField] private float distThreshold = 2;
     [SerializeField] private float projectileFireRate = 2.0f;
-    [SerializeField] private float detcRange = 2.0f;
-    private float timeSinceLastFire = 0f;
+
     private Transform playerTransform;
+    private float timeSinceLastFire = 0;
+
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     protected override void Start()
     {
-        sr = GetComponent<SpriteRenderer>();
-
         base.Start();
-
-        playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
 
         if (projectileFireRate <= 0)
             projectileFireRate = 2;
+
+        if (distThreshold <= 0)
+            distThreshold = 2;
+
     }
+
+    private void OnEnable()
+    {
+        GameManager.Instance.OnPlayerSpawned += OnPlayerSpawnedCallback;
+    }
+    private void OnDisable()
+    {
+        GameManager.Instance.OnPlayerSpawned -= OnPlayerSpawnedCallback;
+    }
+
+    private void OnPlayerSpawnedCallback(PlayerController controller) => playerTransform = controller.transform;
 
     // Update is called once per frame
     void Update()
     {
+        if (!playerTransform) return;
+
         AnimatorClipInfo[] curPlayingClips = anim.GetCurrentAnimatorClipInfo(0);
 
-        if (curPlayingClips[0].clip.name.Contains("Idle")) CheckFire();
+        sr.flipX = (transform.position.x < playerTransform.position.x);
 
-        TurretFlip();
-        
+        CheckDistance(Mathf.Abs(playerTransform.position.x - transform.position.x), curPlayingClips[0]);
     }
 
-     void CheckFire()
+    void CheckDistance(float distance, AnimatorClipInfo curClip)
     {
-        if (playerTransform != null)
+        if (distance <= distThreshold)
         {
-            float distanceToPlayer = Vector2.Distance(transform.position, playerTransform.position);
-
-            if (distanceToPlayer <= detcRange && Time.time > timeSinceLastFire + projectileFireRate)
-            {
-                anim.SetTrigger("Fire");
-                timeSinceLastFire = Time.time;
-            }
+            if (curClip.clip.name.Contains("Idle")) CheckFire();
         }
+        else
+            sr.color = Color.white;
     }
 
-    private void TurretFlip()
+    void CheckFire()
     {
-        if (playerTransform != null)
+        if (Time.time >= timeSinceLastFire + projectileFireRate)
         {
-            if (playerTransform.position.x < transform.position.x)
-            {
-                sr.flipX = false;
-            }
-
-            else if(playerTransform.position.x > transform.position.x)
-            {
-                sr.flipX = true;
-            }
+            anim.SetTrigger("Fire");
+            timeSinceLastFire = Time.time;
         }
     }
 }
