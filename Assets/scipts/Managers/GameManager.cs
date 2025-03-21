@@ -3,8 +3,12 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Events;
 
+
 public class GameManager : MonoBehaviour
 {
+    AudioSource audioSource;
+    public AudioClip DeathClip;
+
     private static GameManager _instance;
     public static GameManager Instance => _instance;
 
@@ -20,11 +24,9 @@ public class GameManager : MonoBehaviour
         get => _lives;
         set
         {
-            //Debug.Log("current{ _lives}");
-             
-
             if (value < 0)
             {
+                audioSource.PlayOneShot(DeathClip);
                 GameOver();
                 return;
             }
@@ -39,13 +41,6 @@ public class GameManager : MonoBehaviour
             Debug.Log($"{gameObject.name} lives has changed to {_lives}");
         }
     }
-    //public int GetLives() { return lives; }
-    //public void SetLives(int value)
-    //{
-    //    lives = value;
-    //    if (lives > maxLives)
-    //        lives = maxLives;
-    //}
 
     private int _Score = 0;
 
@@ -90,8 +85,11 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        if(maxLives <= 0) maxLives = 5;
+        audioSource = GetComponent<AudioSource>();
+
+        if (maxLives <= 0) maxLives = 5;
         _lives = maxLives;
+
     }
     // Update is called once per frame
     void Update()
@@ -126,11 +124,12 @@ public class GameManager : MonoBehaviour
     }
     
     
-
+    
     void GameOver()
     {
         if (lives <= 0)
         {
+            
             string sceneName = (SceneManager.GetActiveScene().name.Contains("Level")) ? "GameOver" : "Level";
             SceneManager.LoadScene(sceneName);
 
@@ -143,6 +142,7 @@ public class GameManager : MonoBehaviour
 
     void Respawn()
     {
+        audioSource.PlayOneShot(DeathClip);
         //TODO: ANIMATION BEFORE POSTION CHANGE
         _playerInstance.transform.position = currentCheckpoint.position;
     }

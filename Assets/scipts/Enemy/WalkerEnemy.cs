@@ -21,7 +21,7 @@ public class WalkerEnemy : Enemy
     public override void TakeDamage(int DamageValue, DamageType damage = DamageType.Default)
     {
         base.TakeDamage(DamageValue, damage);
-        Debug.Log("This is ectra code from walkerenemy.cs");
+        Debug.Log("This is extra code from walkerenemy.cs");
         rb.linearVelocityX = 0.0f;
     }
     // Update is called once per frame
