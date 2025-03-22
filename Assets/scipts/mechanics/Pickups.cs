@@ -3,6 +3,8 @@ using UnityEngine;
 //but anything more than 10 pickups and varied mechanics fr the pickups will probably require a diffrent solution
 public class Pickups : MonoBehaviour
 {
+    AudioSource audioSource;
+    public AudioClip pickupSound;
     public enum PickupType
     {
         Life,
@@ -11,6 +13,8 @@ public class Pickups : MonoBehaviour
     }
 
     public PickupType type;
+
+    void Start() => audioSource = GetComponent<AudioSource>();
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -22,17 +26,27 @@ public class Pickups : MonoBehaviour
             {
                 case PickupType.Life:
                     GameManager.Instance.lives++;
+                    audioSource.PlayOneShot(pickupSound);
+                    GetComponent<Collider2D>().enabled = false;
+                    GetComponent<SpriteRenderer>().enabled = false;
                     break;
                 case PickupType.Powerup:
                     PC.SpeedChange();
+                    audioSource.PlayOneShot(pickupSound);
+                    GetComponent<Collider2D>().enabled = false;
+                    GetComponent<SpriteRenderer>().enabled = false;
                     break;
                 case PickupType.Score:
                     GameManager.Instance.Score++;
+                    audioSource.PlayOneShot(pickupSound);
+                    GetComponent<Collider2D>().enabled = false;
+                    GetComponent<SpriteRenderer>().enabled = false;
                     break;
                     
             }
 
-            Destroy(gameObject);
+            Destroy(gameObject, pickupSound.length);
+            
         }
     }
 }

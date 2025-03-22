@@ -135,9 +135,10 @@ public class PlayerController : MonoBehaviour
         //do something immediately
         speed *= 2;
         Debug.Log($"player Controller speed has changed to {speed}");
-        yield return new WaitForSeconds(5.0f);
+        yield return new WaitForSeconds(3.5f);
 
         //do something after 5 seconds
         speed /= 2;
+        Debug.Log($"player Controller speed has changed to {speed}");
     }
 }

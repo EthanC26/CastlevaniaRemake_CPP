@@ -2,21 +2,20 @@ using UnityEngine;
 
 public class Powerup : MonoBehaviour, IPickup
 {
-    Rigidbody2D rb;
+    AudioSource audioSource;
+    public AudioClip pickupSound;
     public void Pickup()
     {
         GameManager.Instance.PlayerInstance.SpeedChange();
-        Destroy(gameObject);
+        audioSource.PlayOneShot(pickupSound);
+        GetComponent<Collider2D>().enabled = false;
+        GetComponent<SpriteRenderer>().enabled = false;
+        Destroy(gameObject, pickupSound.length);
     }
 
-    void Start()
-    {
-        rb = GetComponent<Rigidbody2D>();
-        rb.linearVelocity = new Vector2(-2, 2);
-    }
+    void Start() => audioSource = GetComponent<AudioSource>();
 
-    void Update()
-    {
-        rb.linearVelocityX = -2;
-    }
+   
 }
+
+
