@@ -132,7 +132,7 @@ public class GameManager : MonoBehaviour
             
             string sceneName = (SceneManager.GetActiveScene().name.Contains("Level")) ? "GameOver" : "Level";
             SceneManager.LoadScene(sceneName);
-
+             
             Debug.Log("Game Over gose here :(");
         }
 

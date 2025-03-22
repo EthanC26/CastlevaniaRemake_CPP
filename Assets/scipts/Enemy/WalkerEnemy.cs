@@ -21,7 +21,6 @@ public class WalkerEnemy : Enemy
     public override void TakeDamage(int DamageValue, DamageType damage = DamageType.Default)
     {
         base.TakeDamage(DamageValue, damage);
-        Debug.Log("This is extra code from walkerenemy.cs");
         rb.linearVelocityX = 0.0f;
     }
     // Update is called once per frame
@@ -29,13 +28,24 @@ public class WalkerEnemy : Enemy
     {
         AnimatorClipInfo[] curPlayingClips = anim.GetCurrentAnimatorClipInfo(0);
 
-        if (curPlayingClips[0].clip.name.Contains("zombie walk"))
+        if (curPlayingClips[0].clip.name.Contains("Walk"))
             rb.linearVelocity = (sr.flipX) ? new Vector2(xVel, rb.linearVelocityY) : new Vector2(-xVel,
                 rb.linearVelocityY);
+
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Barrier"))
             sr.flipX = !sr.flipX;
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (gameObject.CompareTag("Enemy") && collision.gameObject.CompareTag("Player"))
+        {
+            GameManager.Instance.lives--;
+            sr.flipX = !sr.flipX;
+        }
+    }
+
 }

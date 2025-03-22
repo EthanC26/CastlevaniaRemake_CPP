@@ -9,6 +9,7 @@ TagManager:
   - Barrier
   - eProj
   - pProj
+  - Enemy
   layers:
   - Default
   - TransparentFX

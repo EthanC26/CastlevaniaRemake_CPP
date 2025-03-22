@@ -21,7 +21,7 @@ public abstract class Enemy : MonoBehaviour
 
         if (maxHealth <= 0) maxHealth = 5;
 
-        health =maxHealth;
+        health = maxHealth;
     }
 
     public virtual void TakeDamage(int DamageValue, DamageType damage = DamageType.Default)

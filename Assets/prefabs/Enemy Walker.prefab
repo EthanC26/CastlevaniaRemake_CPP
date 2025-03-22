@@ -207,7 +207,7 @@ GameObject:
   - component: {fileID: 3640455764249310054}
   m_Layer: 0
   m_Name: Zombie Enemy(walker)
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -316,7 +316,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.0062035993, y: -0.019301906}
+  m_Offset: {x: -0.000648953, y: -0.014733508}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -326,7 +326,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.12588012, y: 0.28139618}
+  m_Size: {x: 0.13958524, y: 0.29053298}
   m_EdgeRadius: 0
 --- !u!50 &1728586105105535079
 Rigidbody2D:
