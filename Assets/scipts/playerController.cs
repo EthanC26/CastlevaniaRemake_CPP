@@ -111,19 +111,14 @@ public class PlayerController : MonoBehaviour
     {
         //detect pickup
         IPickup pickup = collision.gameObject.GetComponent<IPickup>();
-       // if (pickup != null) pickup.Pickup(this);
+       //if (pickup != null) pickup.Pickup(this);
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         //detect pickup
         IPickup pickup = collision.GetComponent<IPickup>();
-       // if (pickup != null) pickup.Pickup(this);
+        if (pickup != null) pickup.Pickup();
     }
-    private void OnCollisionExit(Collision collision)
-    {
-
-    }
-
     
     public void SpeedChange()
     {
